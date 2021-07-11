@@ -4,6 +4,17 @@
     <TargetFrameworks>net5.0;netstandard2.1;netstandard2.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
+    <PackageIcon>Logo.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageProjectUrl>https://github.com/valeraf23/VF.ExpressionParser</PackageProjectUrl>
+    <PackageReleaseNotes>ExpressionParser , Expression Tree Parser , Expression , Expression Tree, Lambda</PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
