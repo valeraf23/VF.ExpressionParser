@@ -13,7 +13,7 @@ namespace VF.ExpressionParser.Tests
             var foo = 78;
             Expression<Func<bool>> exp = () => foo > 2;
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("78 GreaterThan 3");
+            res.Should().BeEquivalentTo("78 GreaterThan 2");
         }
 
         [Fact]
