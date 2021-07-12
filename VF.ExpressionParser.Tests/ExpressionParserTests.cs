@@ -13,7 +13,7 @@ namespace VF.ExpressionParser.Tests
             var foo = 78;
             Expression<Func<bool>> exp = () => foo > 2;
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("78 GreaterThan 2");
+            res.Should().BeEquivalentTo("() => 78 GreaterThan 2");
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace VF.ExpressionParser.Tests
             const int foo = 78;
             Expression<Func<bool>> exp = () => foo > 2;
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("True");
+            res.Should().BeEquivalentTo("() => True");
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace VF.ExpressionParser.Tests
             var foo = 78;
             Expression<Func<bool>> exp = () => foo + 5 > 2 && foo > 3;
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("78 Add 5 GreaterThan 2 AndAlso 78 GreaterThan 3");
+            res.Should().BeEquivalentTo("() => 78 Add 5 GreaterThan 2 AndAlso 78 GreaterThan 3");
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace VF.ExpressionParser.Tests
             var foo = 78;
             Expression<Func<bool>> exp = () => foo > 2 && foo > 3 || foo < 100;
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("78 GreaterThan 2 AndAlso 78 GreaterThan 3 OrElse 78 LessThan 100");
+            res.Should().BeEquivalentTo("() => 78 GreaterThan 2 AndAlso 78 GreaterThan 3 OrElse 78 LessThan 100");
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace VF.ExpressionParser.Tests
             var foo = 78;
             Expression<Func<bool>> exp = () => new TestValues().IsGreaterThan(foo, 5) || foo < 100;
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("TestValues.IsGreaterThan(78, 5) OrElse 78 LessThan 100");
+            res.Should().BeEquivalentTo("() => TestValues.IsGreaterThan(78, 5) OrElse 78 LessThan 100");
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace VF.ExpressionParser.Tests
         {
             Expression<Func<bool>> exp = () => new TestValues().IsStringNullOrEmpty(null);
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("TestValues.IsStringNullOrEmpty(null)");
+            res.Should().BeEquivalentTo("() => TestValues.IsStringNullOrEmpty(null)");
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace VF.ExpressionParser.Tests
             var foo = 78;
             Expression<Func<bool>> exp = () => TestValues.IsGreaterThanStatic(foo, 5) || foo < 100;
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("TestValues.IsGreaterThanStatic(78, 5) OrElse 78 LessThan 100");
+            res.Should().BeEquivalentTo("() => TestValues.IsGreaterThanStatic(78, 5) OrElse 78 LessThan 100");
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace VF.ExpressionParser.Tests
         {
             Expression<Func<bool>> exp = () => TestValues.IsGreaterThanStatic(78, 5);
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("TestValues.IsGreaterThanStatic(78, 5)");
+            res.Should().BeEquivalentTo("() => TestValues.IsGreaterThanStatic(78, 5)");
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace VF.ExpressionParser.Tests
             };
             Expression<Func<bool>> exp = () => TestValues.IsGreaterThanStatic(foo.FooInt, 5);
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("TestValues.IsGreaterThanStatic(50, 5)");
+            res.Should().BeEquivalentTo("() => TestValues.IsGreaterThanStatic(50, 5)");
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace VF.ExpressionParser.Tests
         {
             Expression<Func<int, int, int>> sum = (x, y) => x + y;
             var res = ExpressionParser.GetBodyText(sum);
-            res.Should().BeEquivalentTo("x Add y");
+            res.Should().BeEquivalentTo("(x, y) => x Add y");
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace VF.ExpressionParser.Tests
         {
             Expression<Func<int, int, int>> sum = (x, y) => x + y + 50;
             var res = ExpressionParser.GetBodyText(sum);
-            res.Should().BeEquivalentTo("x Add y Add 50");
+            res.Should().BeEquivalentTo("(x, y) => x Add y Add 50");
         }
 
         [Fact]
@@ -111,7 +111,7 @@ namespace VF.ExpressionParser.Tests
             var foo = 50;
             Expression<Func<int, int, int>> sum = (x, y) => x + y - foo;
             var res = ExpressionParser.GetBodyText(sum);
-            res.Should().BeEquivalentTo("x Add y Subtract 50");
+            res.Should().BeEquivalentTo("(x, y) => x Add y Subtract 50");
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace VF.ExpressionParser.Tests
         {
             Expression<Action> exp = () => TestValues.IsGreaterThanStatic(78, 5);
             var res = ExpressionParser.GetBodyText(exp);
-            res.Should().BeEquivalentTo("TestValues.IsGreaterThanStatic(78, 5)");
+            res.Should().BeEquivalentTo("() => TestValues.IsGreaterThanStatic(78, 5)");
         }
     }
 }

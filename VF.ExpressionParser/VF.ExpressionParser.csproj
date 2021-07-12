@@ -8,6 +8,7 @@
     <PackageIconUrl />
     <PackageProjectUrl>https://github.com/valeraf23/VF.ExpressionParser</PackageProjectUrl>
     <PackageReleaseNotes>ExpressionParser , Expression Tree Parser , Expression , Expression Tree, Lambda</PackageReleaseNotes>
+    <PackageId>VFExpression</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

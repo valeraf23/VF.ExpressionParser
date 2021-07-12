@@ -4,29 +4,24 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace VF.ExpressionParser
 {
     public class ExpressionParser
     {
-
-        public static string? GetBodyText<T>(Expression<Func<T>> expression) => ResolveExpressionValue(expression.Body)?.ToString();
-
-        public static string? GetBodyText<T, T1>(Expression<Func<T, T1>> expression) => ResolveExpressionValue(expression.Body)?.ToString();
-
-        public static string? GetBodyText<T, T1, T2>(Expression<Func<T, T1, T2>> expression) => ResolveExpressionValue(expression.Body)?.ToString();
-       
-        public static string? GetBodyText<T>(Expression<Action<T>> expression) => ResolveExpressionValue(expression.Body)?.ToString();
-
-        public static string? GetBodyText(Expression<Action> expression) => ResolveExpressionValue(expression.Body)?.ToString();
-
-        public static string? GetBodyText<T, T1>(Expression<Action<T, T1>> expression) => ResolveExpressionValue(expression.Body)?.ToString();
+        public static string? GetBodyText(LambdaExpression expression)
+        {
+            var body = ResolveExpressionValue(expression.Body);
+            if (body is null) return null;
+            var lambda = Expression.Lambda(Expression.Constant(body), expression.Parameters);
+            return Regex.Replace(lambda.ToString(), "\"", "", RegexOptions.None);
+        }
 
         private static List<ArgumentContext> GetMethodArgumentContext(
             IEnumerable<ArgumentMetadata> argumentContexts,
-            IReadOnlyList<object?> values)
-            => argumentContexts.Select((t, i)
-                => new ArgumentContext(t.Name, t.ParameterType, values[i])).ToList();
+            IReadOnlyList<object?> values) =>
+            argumentContexts.Select((t, i) => new ArgumentContext(t.Name, t.ParameterType, values[i])).ToList();
 
         private static string GetMethodCallExpressionBody(MethodContext methodContext)
         {
@@ -36,12 +31,10 @@ namespace VF.ExpressionParser
             st.Append(methodContext.Name);
             st.Append('(');
             foreach (var argumentValue in methodContext.Arguments.Select(value => value.Value))
-            {
                 if (argumentValue is null)
                     st.Append("null").Append(", ");
                 else
                     st.Append(argumentValue).Append(", ");
-            }
 
 
             st.Remove(st.Length - 2, 2);
@@ -49,7 +42,7 @@ namespace VF.ExpressionParser
             return st.ToString();
         }
 
-        private static MethodContext GetMethodCallContext(MethodCallExpression expression)
+        public static MethodContext GetMethodCallContext(MethodCallExpression expression)
         {
             var reflectedType = expression.Method.ReflectedType;
             var methodName = expression.Method.Name;
@@ -118,7 +111,8 @@ namespace VF.ExpressionParser
                     {
                         // Expression of type c => c.Action(id)
                         // Value can be extracted without compiling.
-                        if (expression is MemberExpression { Expression: ConstantExpression constantExpression } memberAccessExpr)
+                        if (expression is MemberExpression
+                            { Expression: ConstantExpression constantExpression } memberAccessExpr)
                         {
                             var innerMemberName = memberAccessExpr.Member.Name;
                             var compiledLambdaScopeField = constantExpression.Value?.GetType().GetField(innerMemberName);
