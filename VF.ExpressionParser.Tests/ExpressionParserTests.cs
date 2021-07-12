@@ -17,6 +17,22 @@ namespace VF.ExpressionParser.Tests
         }
 
         [Fact]
+        public void Should_Retrieve_Parameter_Name_In_Method_Call_Arguments()
+        {
+            Expression<Func<string, bool>> exp = x => string.IsNullOrEmpty(x);
+            var res = ExpressionExtension.ConvertToString(exp);
+            res.Should().BeEquivalentTo("(x) => String.IsNullOrEmpty(x)");
+        }
+
+        [Fact]
+        public void Should_Retrieve_Parameter_Name_In_Method_Call_Arguments_With_Not()
+        {
+            Expression<Func<string, bool>> exp = x => !string.IsNullOrEmpty(x);
+            var res = ExpressionExtension.ConvertToString(exp);
+            res.Should().BeEquivalentTo("(x) => Not(IsNullOrEmpty(x))");
+        }
+
+        [Fact]
         public void Should_Retrieve_Local_Variable()
         {
             var foo = 78;

@@ -53,7 +53,11 @@ namespace VF.ExpressionParser
                         var constantExpression = (ConstantExpression)arg;
                         return constantExpression.Value;
                     }
-
+                    if (arg.NodeType == ExpressionType.Parameter)
+                    {
+                        var parameterExpression = (ParameterExpression)arg;
+                        return parameterExpression.Name;
+                    }
                     // () => (object)arg
                     var convertExpression = Expression.Convert(arg, typeof(object));
                     var funcExpression =

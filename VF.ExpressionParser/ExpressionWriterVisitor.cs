@@ -25,7 +25,11 @@ namespace VF.ExpressionParser
             _writer.Append(node.Name);
             return node;
         }
-
+        protected override Expression VisitUnary(UnaryExpression node)
+        {
+            _writer.Append(node);
+            return node;
+        }
         protected override Expression VisitLambda<T>(Expression<T> node)
         {
             _writer.Append('(');
