@@ -8,7 +8,24 @@ namespace VF.ExpressionParser.Tests
     public class ExpressionParserTests
     {
         [Fact]
-        public void Should_Retrieve_Local_Variable1()
+        public void Should_Retrieve_Property()
+        {
+            var s = new SomeClass
+            {
+                Child = new OtherClass()
+                {
+                    SomeNumber = 1
+                },
+                SomeNumber = 2
+            };
+            var foo = 78;
+            Expression<Func<SomeClass, bool>> exp = a => s.Child.SomeNumber == 1 && a.SomeNumber == 3 && s.SomeNumber == 3 && foo > 0 || new TestValues().Sum(s.SomeNumber, 5) > 5;
+            var res = ExpressionExtension.ConvertToString(exp);
+            res.Should().BeEquivalentTo($"(a) => {s.Child.SomeNumber} == 1 && a.SomeNumber == 3 && {s.SomeNumber} == 3 && {foo} > 0 || TestValues.Sum({s.SomeNumber}, 5) > 5");
+        }
+
+        [Fact]
+        public void Should_Display_Parameters()
         {
             var foo = 78;
             Expression<Func<SomeClass, bool>> exp = a => a.Child.SomeNumber == 1 && a.SomeNumber == 3 && foo > 0 || new TestValues().Sum(foo, 5) > 5;

@@ -11,7 +11,9 @@ namespace VF.ExpressionParser
         private static List<ArgumentContext> GetMethodArgumentContext(
             IEnumerable<ArgumentMetadata> argumentContexts,
             IReadOnlyList<object?> values)
-            => argumentContexts.Select((t, i) => new ArgumentContext(t.Name, t.ParameterType, values[i])).ToList();
+        {
+            return argumentContexts.Select((t, i) => new ArgumentContext(t.Name, t.ParameterType, values[i])).ToList();
+        }
 
         public static void GetMethodCallExpression(this MethodContext methodContext, StringBuilder st)
         {
@@ -48,16 +50,26 @@ namespace VF.ExpressionParser
             var values = expression.Arguments
                 .Select(arg =>
                 {
-                    if (arg.NodeType == ExpressionType.Constant)
+                    switch (arg.NodeType)
                     {
-                        var constantExpression = (ConstantExpression)arg;
-                        return constantExpression.Value;
+                        case ExpressionType.Constant:
+                        {
+                            var constantExpression = (ConstantExpression) arg;
+                            return constantExpression.Value;
+                        }
+                        case ExpressionType.Parameter:
+                        {
+                            var parameterExpression = (ParameterExpression) arg;
+                            return parameterExpression.Name;
+                        }
+                        case ExpressionType.MemberAccess:
+                        {
+                            var member = (MemberExpression) arg;
+                            var value = member.GetConstantValue();
+                            return value ?? member;
+                        }
                     }
-                    if (arg.NodeType == ExpressionType.Parameter)
-                    {
-                        var parameterExpression = (ParameterExpression)arg;
-                        return parameterExpression.Name;
-                    }
+
                     // () => (object)arg
                     var convertExpression = Expression.Convert(arg, typeof(object));
                     var funcExpression =

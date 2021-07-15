@@ -17,7 +17,7 @@ namespace VF.ExpressionParser.Tests
 
     public class SomeClass
     {
-        public int SomeNumber { get; init; }
+        public int SomeNumber;
         public OtherClass Child { get; init; }
     }
 

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
 
 namespace VF.ExpressionParser
@@ -73,9 +72,10 @@ namespace VF.ExpressionParser
             // Closures are represented as a constant object with fields representing each closed over value.
             // This gets and prints the value of that closure.
 
-            if (node.Member is FieldInfo fieldInfo && node.Expression is ConstantExpression constExpr)
+            var value = node.GetConstantValue();
+            if (value is not null)
             {
-                WriteConstantValue(fieldInfo.GetValue(constExpr.Value));
+                WriteConstantValue(value);
             }
             else
             {
