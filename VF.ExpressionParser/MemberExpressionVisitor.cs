@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace VF.ExpressionParser
 {
@@ -14,7 +13,7 @@ namespace VF.ExpressionParser
     public static class MemberExpressionHelper
     {
         private static readonly Type TypeOfObject = typeof(object);
-        
+
         public static IEnumerable<MemberGetter<T>> GetMembersFunctions<T>(LambdaExpression exp)
         {
             var parameterExpression = exp.Parameters.Single();

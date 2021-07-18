@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using VF.ExpressionParser.Helpers.Dto;
 
-namespace VF.ExpressionParser
+namespace VF.ExpressionParser.Helpers.Extension
 {
     public static class MethodContextExtensions
     {
         private static List<ArgumentContext> GetMethodArgumentContext(
             IEnumerable<ArgumentMetadata> argumentContexts,
-            IReadOnlyList<object?> values)
-        {
-            return argumentContexts.Select((t, i) => new ArgumentContext(t.Name, t.ParameterType, values[i])).ToList();
-        }
+            IReadOnlyList<object?> values) =>
+            argumentContexts.Select((t, i) => new ArgumentContext(t.Name, t.ParameterType, values[i])).ToList();
 
         public static void GetMethodCallExpression(this MethodContext methodContext, StringBuilder st)
         {
@@ -65,8 +64,19 @@ namespace VF.ExpressionParser
                         case ExpressionType.MemberAccess:
                         {
                             var member = (MemberExpression) arg;
-                            var value = member.GetConstantValue();
-                            return value ?? member;
+                            object obg = member;
+                             member.GetConstantExpressionMetaData()
+                                .MapT0(
+                                    data =>
+                                    {
+                                        var sb = new StringBuilder();
+                                        data.WriteConstantValueAndPath(sb);
+                                        return sb.ToString();
+                                    }
+                                ).Switch(
+                                    s => obg =s,
+                                    _ => { });
+                            return obg;
                         }
                     }
 

@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using VF.ExpressionParser.Helpers;
+using VF.ExpressionParser.Helpers.Extension;
 
 namespace VF.ExpressionParser
 {
@@ -24,11 +26,13 @@ namespace VF.ExpressionParser
             _writer.Append(node.Name);
             return node;
         }
+
         protected override Expression VisitUnary(UnaryExpression node)
         {
             _writer.Append(node);
             return node;
         }
+
         protected override Expression VisitLambda<T>(Expression<T> node)
         {
             _writer.Append('(');
@@ -72,46 +76,29 @@ namespace VF.ExpressionParser
             // Closures are represented as a constant object with fields representing each closed over value.
             // This gets and prints the value of that closure.
 
-            var value = node.GetConstantValue();
-            if (value is not null)
-            {
-                WriteConstantValue(value);
-            }
-            else
-            {
-                Visit(node.Expression);
-                _writer.Append('.');
-                _writer.Append(node.Member.Name);
-            }
+            node.GetConstantExpressionMetaData()
+                .Switch(
+                    data => data.WriteConstantValueAndPath(_writer),
+                    _ =>
+                    {
+                        Visit(node.Expression);
+                        _writer.Append('.');
+                        _writer.Append(node.Member.Name);
+                    });
             return node;
         }
 
         protected override Expression VisitConstant(ConstantExpression node)
         {
-            WriteConstantValue(node.Value);
-
+            WriterExpressionHelper.WriteConstantValue(node.Value, _writer);
             return node;
         }
+
         protected override Expression VisitMethodCall(MethodCallExpression node)
         {
             var context = node.GetMethodCallContext();
             context.GetMethodCallExpression(_writer);
             return node;
-        }
-       
-        private void WriteConstantValue(object? obj)
-        {
-            switch (obj)
-            {
-                case string str:
-                    _writer.Append('"');
-                    _writer.Append(str);
-                    _writer.Append('"');
-                    break;
-                default:
-                    _writer.Append(obj);
-                    break;
-            }
         }
 
         private static string GetOperator(ExpressionType type)

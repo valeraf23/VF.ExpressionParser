@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net5.0;netstandard2.1;netstandard2.0</TargetFrameworks>
@@ -15,10 +15,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ExpressionParser.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\..\..\Desktop\Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OneOf" Version="3.0.190" />
   </ItemGroup>
 
 </Project>

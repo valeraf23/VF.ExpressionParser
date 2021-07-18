@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using VF.ExpressionParser.Helpers.Extension;
 
 namespace VF.ExpressionParser
 {

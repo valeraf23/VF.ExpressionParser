@@ -24,5 +24,7 @@ namespace VF.ExpressionParser.Tests
     public class OtherClass
     {
         public int SomeNumber { get; init; }
+
+        public string? SomeString { get; init; }
     }
 }

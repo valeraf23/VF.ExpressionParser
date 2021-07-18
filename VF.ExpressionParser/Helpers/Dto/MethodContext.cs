@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VF.ExpressionParser
+namespace VF.ExpressionParser.Helpers.Dto
 {
     internal class ArgumentMetadata
     {
