@@ -10,10 +10,7 @@ namespace VF.ExpressionParser
     {
         private readonly StringBuilder _writer;
 
-        public ExpressionWriterVisitor(StringBuilder writer)
-        {
-            _writer = writer;
-        }
+        public ExpressionWriterVisitor(StringBuilder writer) => _writer = writer;
 
         public string ConvertToString(Expression? exp)
         {
@@ -48,26 +45,18 @@ namespace VF.ExpressionParser
         protected override Expression VisitConditional(ConditionalExpression node)
         {
             Visit(node.Test);
-
             _writer.Append('?');
-
             Visit(node.IfTrue);
-
             _writer.Append(':');
-
             Visit(node.IfFalse);
-
             return node;
         }
 
         protected override Expression VisitBinary(BinaryExpression node)
         {
             Visit(node.Left);
-
             _writer.Append(' ').Append(GetOperator(node.NodeType)).Append(' ');
-
             Visit(node.Right);
-
             return node;
         }
 
@@ -101,27 +90,24 @@ namespace VF.ExpressionParser
             return node;
         }
 
-        private static string GetOperator(ExpressionType type)
+        private static string GetOperator(ExpressionType type) => type switch
         {
-            return type switch
-            {
-                ExpressionType.Equal => "==",
-                ExpressionType.Not => "!",
-                ExpressionType.NotEqual => "!==",
-                ExpressionType.GreaterThan => ">",
-                ExpressionType.GreaterThanOrEqual => ">=",
-                ExpressionType.LessThan => "<",
-                ExpressionType.LessThanOrEqual => "<=",
-                ExpressionType.Or => "|",
-                ExpressionType.OrElse => "||",
-                ExpressionType.And => "&",
-                ExpressionType.AndAlso => "&&",
-                ExpressionType.Add => "+",
-                ExpressionType.AddAssign => "+=",
-                ExpressionType.Subtract => "-",
-                ExpressionType.SubtractAssign => "-=",
-                _ => "???"
-            };
-        }
+            ExpressionType.Equal => "==",
+            ExpressionType.Not => "!",
+            ExpressionType.NotEqual => "!==",
+            ExpressionType.GreaterThan => ">",
+            ExpressionType.GreaterThanOrEqual => ">=",
+            ExpressionType.LessThan => "<",
+            ExpressionType.LessThanOrEqual => "<=",
+            ExpressionType.Or => "|",
+            ExpressionType.OrElse => "||",
+            ExpressionType.And => "&",
+            ExpressionType.AndAlso => "&&",
+            ExpressionType.Add => "+",
+            ExpressionType.AddAssign => "+=",
+            ExpressionType.Subtract => "-",
+            ExpressionType.SubtractAssign => "-=",
+            _ => "???"
+        };
     }
 }
