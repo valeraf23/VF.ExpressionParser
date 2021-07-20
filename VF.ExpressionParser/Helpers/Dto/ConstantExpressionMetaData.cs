@@ -18,7 +18,7 @@ namespace VF.ExpressionParser.Helpers.Dto
             writer.Append(Path); 
             // if (!Value.GetType().IsPrimitiveOrString()) return;
             writer.Append('(');
-            WriterExpressionHelper.WriteConstantValue(Value, writer);
+            WriterHelper.WriteConstantValue(Value, writer);
             writer.Append(')');
 
         }

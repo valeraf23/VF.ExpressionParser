@@ -2,7 +2,7 @@
 
 namespace VF.ExpressionParser.Helpers
 {
-    public static class WriterExpressionHelper
+    public static class WriterHelper
     {
         public static void WriteConstantValue(object? obj, StringBuilder writer)
         {

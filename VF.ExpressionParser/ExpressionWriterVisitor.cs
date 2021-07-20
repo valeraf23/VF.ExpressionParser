@@ -79,7 +79,7 @@ namespace VF.ExpressionParser
 
         protected override Expression VisitConstant(ConstantExpression node)
         {
-            WriterExpressionHelper.WriteConstantValue(node.Value, _writer);
+            WriterHelper.WriteConstantValue(node.Value, _writer);
             return node;
         }
 
