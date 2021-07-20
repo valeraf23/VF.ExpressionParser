@@ -1,5 +1,7 @@
 # VF.ExpressionParser
 
+[![NuGet.org](https://img.shields.io/nuget/v/VF.ExpressionParser.svg?style=flat-square&label=NuGet.org)](https://www.nuget.org/packages/VF.ExpressionParser/)
+![Nuget](https://img.shields.io/nuget/dt/VF.ExpressionParser)
 [![.NET Actions Status](https://github.com/valeraf23/VF.ExpressionParser/workflows/.NET/badge.svg)](https://github.com/valeraf23/VF.ExpressionParser)
 
 ## Example:
