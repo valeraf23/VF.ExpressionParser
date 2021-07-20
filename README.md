@@ -5,8 +5,23 @@
 ## Example:
 
 ```csharp
+            var s = new SomeClass
+            {
+                Child = new OtherClass
+                {
+                    SomeNumber = 1
+                },
+                SomeNumber = 2
+            };
+
             var foo = 78;
-            Expression<Func<bool>> exp = () => foo > 2 && foo > 3 || foo < 100;
-            var res = ExpressionParser.GetBodyText(exp);
-            Console.WriteLine(res); //78 GreaterThan 2 AndAlso 78 GreaterThan 3 OrElse 78 LessThan 100            
+            
+            Expression<Func<SomeClass, bool>> exp = a => s.Child.SomeNumber == 1 &&
+                a.SomeNumber == 3 && s.SomeNumber == 3 &&
+                foo > 0 ||
+                new TestValues().Sum(s.Child.SomeNumber, 5) > 5;
+
+            var res = ExpressionExtension.ConvertToString(exp);
+            Console.WriteLine(res);
+            //"(a) => s.Child.SomeNumber(1) == 1 && a.SomeNumber == 3 && s.SomeNumber(2) == 3 && foo(78) > 0 || TestValues.Sum(s.Child.SomeNumber(1), 5) > 5");         
 ```
