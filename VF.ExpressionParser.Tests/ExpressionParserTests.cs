@@ -128,7 +128,7 @@ namespace VF.ExpressionParser.Tests
 
             var res = ExpressionExtension.ConvertToString(exp);
 
-            res.Should().BeEquivalentTo("(x) => Not(IsNullOrEmpty(x))");
+            res.Should().BeEquivalentTo("(x) => Not(String.IsNullOrEmpty(x))");
         }
 
         [Fact]
