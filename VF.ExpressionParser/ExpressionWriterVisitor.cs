@@ -26,7 +26,21 @@ namespace VF.ExpressionParser
 
         protected override Expression VisitUnary(UnaryExpression node)
         {
-            _writer.Append(node);
+            if (node.NodeType == ExpressionType.Convert)
+            {
+                _writer.Append('(');
+                _writer.Append(node.Type.FullName);
+                _writer.Append(')');
+            }
+            else
+            {
+                _writer.Append(node.NodeType);
+            }
+
+            _writer.Append('(');
+            Visit(node.Operand);
+            _writer.Append(')');
+
             return node;
         }
 
@@ -107,6 +121,8 @@ namespace VF.ExpressionParser
             ExpressionType.AddAssign => "+=",
             ExpressionType.Subtract => "-",
             ExpressionType.SubtractAssign => "-=",
+            ExpressionType.Divide => "/",
+            ExpressionType.Multiply => "*",
             _ => "???"
         };
     }

@@ -272,5 +272,17 @@ namespace VF.ExpressionParser.Tests
 
             res.Should().BeEquivalentTo("() => TestValues.SumStatic(foo(78), 5) > 0");
         }
+
+        private int testAmountField = 1000;
+
+        [Fact]
+        public void Should_Retrieve_Explicit_Convert_Expression()
+        {
+            Expression<Func<int, bool>> exp = i => (double)testAmountField > 0;
+
+            var res = ExpressionExtension.ConvertToString(exp);
+
+            res.Should().BeEquivalentTo("(i) => (System.Double)(testAmountField(1000)) > 0");
+        }
     }
 }
