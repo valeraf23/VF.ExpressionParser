@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace VF.ExpressionParser.Helpers.Dto
 {
-    internal class ArgumentMetadata
+    internal sealed class ArgumentMetadata
     {
         public ArgumentMetadata(string? name, Type parameterType)
         {

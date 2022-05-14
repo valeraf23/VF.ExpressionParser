@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;netstandard2.1;netstandard2.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <PackageIcon>Logo.png</PackageIcon>
@@ -9,9 +9,12 @@
     <PackageProjectUrl>https://github.com/valeraf23/VF.ExpressionParser</PackageProjectUrl>
     <PackageReleaseNotes>ExpressionParser , Expression Tree Parser , Expression , Expression Tree, Lambda</PackageReleaseNotes>
     <PackageId>VF.ExpressionParser</PackageId>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/valeraf23/VF.ExpressionParser</RepositoryUrl>
+    <PackageTags>ExpressionParser ; Expression; ExpressionTree</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,10 +26,14 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+    <None Include="..\..\ObjectComparator\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OneOf" Version="3.0.190" />
+    <PackageReference Include="OneOf" Version="3.0.216" />
   </ItemGroup>
 
 </Project>
