@@ -4,7 +4,7 @@
     <TargetFrameworks>net6.0;netstandard2.1;netstandard2.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <PackageIcon>Logo.png</PackageIcon>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageProjectUrl>https://github.com/valeraf23/VF.ExpressionParser</PackageProjectUrl>
     <PackageReleaseNotes>ExpressionParser , Expression Tree Parser , Expression , Expression Tree, Lambda</PackageReleaseNotes>
@@ -15,6 +15,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/valeraf23/VF.ExpressionParser</RepositoryUrl>
     <PackageTags>ExpressionParser ; Expression; ExpressionTree</PackageTags>
+    <Copyright>Copyright (c) VF 2022</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Desktop\Logo.png">
+    <None Include="..\..\..\Users\v.f.enko\OneDrive - Fareportal, Inc\Рабочий стол\icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\..\ObjectComparator\README.md">
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
