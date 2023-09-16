@@ -34,6 +34,7 @@ Expression<Func<SomeClass, bool>> exp = a => s.Child.SomeNumber == 1 &&
 
 var res = ExpressionExtension.ConvertToString(exp);
 Console.WriteLine(res);
+```
 
 Output:
 
