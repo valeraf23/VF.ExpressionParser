@@ -6,19 +6,11 @@
 
 ## Table of Contents
 - [Overview](#overview)
-- [Installation](#installation)
-- [Features](#features)
 - [Example](#example)
 
 ## Overview
 
 `VF.ExpressionParser` is a robust .NET library designed to parse and understand complex LINQ expressions. Whether you're visualizing, debugging, or auditing, this tool simplifies the process of interpreting and transforming LINQ expressions.
-
-## Installation
-Insert installation steps or a reference link here.
-
-## Features
-Detail the unique features or capabilities of the library. This section can have sub-sections to delve deeper into specific functionalities.
 
 ## Example
 See how `VF.ExpressionParser` can be effectively used:
