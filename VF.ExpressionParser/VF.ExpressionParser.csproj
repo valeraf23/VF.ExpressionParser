@@ -9,13 +9,15 @@
     <PackageProjectUrl>https://github.com/valeraf23/VF.ExpressionParser</PackageProjectUrl>
     <PackageReleaseNotes>ExpressionParser , Expression Tree Parser , Expression , Expression Tree, Lambda</PackageReleaseNotes>
     <PackageId>VF.ExpressionParser</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <AssemblyVersion>1.0.0.2</AssemblyVersion>
     <FileVersion>1.0.0.2</FileVersion>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/valeraf23/VF.ExpressionParser</RepositoryUrl>
     <PackageTags>ExpressionParser ; Expression; ExpressionTree</PackageTags>
     <Copyright>Copyright (c) VF 2022</Copyright>
+    <Authors>Valerii Fedorenko</Authors>
+    <Description>VF.ExpressionParser is a robust .NET library designed to parse and understand complex LINQ expressions. Whether you're visualizing, debugging, or auditing, this tool simplifies the process of interpreting and transforming LINQ expressions.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\Users\v.f.enko\OneDrive - Fareportal, Inc\Рабочий стол\icon.png">
+    <None Include="..\icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
