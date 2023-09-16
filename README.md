@@ -9,7 +9,6 @@
 - [Installation](#installation)
 - [Features](#features)
 - [Example](#example)
-- [Contributing](#contributing)
 
 ## Overview
 
