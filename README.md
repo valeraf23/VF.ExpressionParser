@@ -1,27 +1,40 @@
-
 # VF.ExpressionParser
 
 [![NuGet.org](https://img.shields.io/nuget/v/VF.ExpressionParser.svg?style=flat-square&label=NuGet.org)](https://www.nuget.org/packages/VF.ExpressionParser/)
-![Nuget](https://img.shields.io/nuget/dt/VF.ExpressionParser)
+![NuGet Downloads](https://img.shields.io/nuget/dt/VF.ExpressionParser)
 [![.NET Actions Status](https://github.com/valeraf23/VF.ExpressionParser/workflows/.NET/badge.svg)](https://github.com/valeraf23/VF.ExpressionParser)
 
+`VF.ExpressionParser` is a .NET library that converts LINQ expression trees into readable string representations. It is useful for debugging, logging, and auditing complex expressions.
+
 ## Table of Contents
-- [Overview](#overview)
+
+- [Features](#features)
+- [Requirements](#requirements)
 - [Installation](#installation)
+- [Quick Start](#quick-start)
 - [Usage](#usage)
   - [Basic Example](#basic-example)
   - [Advanced Example](#advanced-example)
-- [Features](#features)
+- [API Notes](#api-notes)
+- [Build and Test](#build-and-test)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Overview
+## Features
 
-`VF.ExpressionParser` is a powerful .NET library designed to parse, analyze, and convert complex LINQ expressions into readable string formats. This tool is essential for developers who need to visualize, debug, or audit LINQ expressions efficiently.
+- Convert complex LINQ expressions into readable string formats.
+- Evaluate captured values for clearer output.
+- Useful for debugging, logging, and audit trails.
+- Lightweight package with a simple API surface.
+
+## Requirements
+
+- .NET SDK (see the project file for the exact target frameworks).
+- Supported platforms: any platform that supports the targeted .NET frameworks.
 
 ## Installation
 
-You can install the `VF.ExpressionParser` package via NuGet:
+Install via the .NET CLI:
 
 ```bash
 dotnet add package VF.ExpressionParser
@@ -33,11 +46,22 @@ Or via the NuGet Package Manager:
 Install-Package VF.ExpressionParser
 ```
 
+## Quick Start
+
+```csharp
+using System;
+using System.Linq.Expressions;
+using VF.ExpressionParser;
+
+Expression<Func<int, bool>> exp = x => x > 10 && x < 20;
+var res = ExpressionExtension.ConvertToString(exp);
+
+Console.WriteLine(res);
+```
+
 ## Usage
 
 ### Basic Example
-
-Below is a basic example demonstrating how to use `VF.ExpressionParser`:
 
 ```csharp
 using System;
@@ -72,8 +96,6 @@ Output:
 
 ### Advanced Example
 
-Here is a more advanced example showcasing additional capabilities of `VF.ExpressionParser`:
-
 ```csharp
 using System;
 using System.Linq.Expressions;
@@ -104,20 +126,31 @@ Console.WriteLine(res);
 Output:
 
 ```plaintext
-"(a) => s.Child.SomeNumber(1) == a.SomeNumber && s.StringProperty("Test") == "Test" && s.Child.Nested.Value(10) > 5"
+"(a) => s.Child.SomeNumber(1) == a.SomeNumber && s.StringProperty(\"Test\") == \"Test\" && s.Child.Nested.Value(10) > 5"
 ```
 
-## Features
+## API Notes
 
-- **Expression Parsing**: Convert complex LINQ expressions into readable string formats.
-- **Debugging Aid**: Helps in visualizing LINQ expressions for debugging purposes.
-- **Audit and Logging**: Useful for logging expressions for audit trails.
-- **Customization**: Provides flexibility to customize the parsing output.
+- `ExpressionExtension.ConvertToString(Expression expression)` returns the parsed string output.
+- The output includes captured values (for example, `foo(78)`), which makes debugging and logging easier.
+
+## Build and Test
+
+```bash
+dotnet build
+```
+
+```bash
+dotnet test
+```
 
 ## Contributing
 
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on GitHub.
+1. Fork the repository.
+2. Create a feature branch.
+3. Add tests for your change when applicable.
+4. Submit a pull request with a clear description.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
